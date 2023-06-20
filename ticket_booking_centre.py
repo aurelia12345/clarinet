@@ -52,7 +52,10 @@ class TicketBookingCentre:
         self.customers = []
 
     def add_customer(self, customer):
-        min_queue_counter = min(self.counters, key=lambda c: c.count)
+        min_queue_counter = min(
+            (counter for counter in self.counters if counter.status == "open"),
+            key=lambda c: c.count
+        )
         if min_queue_counter.is_queue_full():
             min_queue_counter.close_counter()
             min_queue_counter = self.open_new_counter()
@@ -96,9 +99,3 @@ class TicketBookingCentre:
                     if customer.tickets_booked < customer.total_required_tickets:
                         queue_stream.append([current_time, customer.customer_id,
                                              customer.total_required_tickets - customer.tickets_booked])
-
-        for counter in self.counters:
-            counter.close_counter()
-
-
-
