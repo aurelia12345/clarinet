@@ -28,6 +28,16 @@ def calc_sum(row_index1, row_index2, column_index1, column_index2, cumulative_su
     )
 
 
+# this is a simple approach but would result in O(N*N)
+def calc_sum_long_method(row_index1, row_index2, column_index1, column_index2, matrix):
+    sum = 0
+    for row in matrix[row_index1:row_index2 + 1]:
+        for number in row[column_index1:column_index2 + 1]:
+            sum += number
+
+    return sum
+
+
 matrix = [
     [0, 2, 5, 4, 1],
     [4, 8, 2, 3, 7],
